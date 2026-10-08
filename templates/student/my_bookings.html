@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2 class="mb-4">My Bookings</h2>
+
+<div class="card shadow-sm">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>Booking ID</th>
+                        <th>Equipment</th>
+                        <th>Laboratory</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Purpose</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for b in bookings %}
+                    <tr>
+                        <td>#{{ b.id }}</td>
+                        <td>{{ b.equipment_name }}</td>
+                        <td>{{ b.lab_name }}</td>
+                        <td>{{ b.booking_date }}</td>
+                        <td>{{ b.start_time }} - {{ b.end_time }}</td>
+                        <td>{{ b.purpose }}</td>
+                        <td>
+                            {% if b.status == 'Pending' %}<span class="badge bg-warning">Pending</span>
+                            {% elif b.status == 'Approved' %}<span class="badge bg-info">Approved</span>
+                            {% elif b.status == 'Active' %}<span class="badge bg-success">Active</span>
+                            {% elif b.status == 'Completed' %}<span class="badge bg-secondary">Completed</span>
+                            {% elif b.status == 'Rejected' %}<span class="badge bg-danger">Rejected</span>
+                            {% elif b.status == 'Cancelled' %}<span class="badge bg-dark">Cancelled</span>
+                            {% else %}<span class="badge bg-primary">{{ b.status }}</span>{% endif %}
+                        </td>
+                        <td>
+                            {% if b.status in ['Pending', 'Approved'] %}
+                            <form action="{{ url_for('cancel_booking', booking_id=b.id) }}" method="POST" style="display:inline;">
+                                <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Are you sure you want to cancel this booking?');">Cancel</button>
+                            </form>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="8" class="text-center">You have no bookings yet.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>History: {{ equipment.name }}</h2>
+    <a href="{{ url_for('admin_equipment') }}" class="btn btn-secondary">Back to Equipment</a>
+</div>
+
+<div class="card shadow-sm mb-4">
+    <div class="card-body">
+        <p><strong>Department:</strong> {{ equipment.department }}</p>
+        <p><strong>Lab:</strong> {{ equipment.lab_name }}</p>
+        <p><strong>Description:</strong> {{ equipment.description }}</p>
+    </div>
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-header bg-white">
+        <h5 class="mb-0">Return History</h5>
+    </div>
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>Student</th>
+                        <th>Booked Date/Time</th>
+                        <th>Returned Date/Time</th>
+                        <th>Qty</th>
+                        <th>Condition</th>
+                        <th>Remarks</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for r in history %}
+                    <tr>
+                        <td>{{ r.student_name }}</td>
+                        <td>{{ r.booking_date }} {{ r.start_time }}</td>
+                        <td>{{ r.returned_date }} {{ r.returned_time }}</td>
+                        <td>{{ r.quantity }}</td>
+                        <td>
+                            {% if r.condition == 'Good' %}<span class="badge bg-success">Good</span>
+                            {% elif r.condition == 'Fair' %}<span class="badge bg-warning">Fair</span>
+                            {% elif r.condition == 'Poor' %}<span class="badge bg-danger">Poor</span>
+                            {% else %}<span class="badge bg-secondary">{{ r.condition }}</span>{% endif %}
+                        </td>
+                        <td>{{ r.remarks }}</td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="6" class="text-center">No return history available for this equipment.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

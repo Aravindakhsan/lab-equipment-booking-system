@@ -1,0 +1,337 @@
+@import url('https://fonts.googleapis.com/css2?family=Epilogue:wght@400;500;600;700;800&family=Mulish:wght@400;500;600;700&display=swap');
+
+:root {
+    --frost-navy: #071629;
+    --deep-winter-blue: #17345C;
+    --icy-steel: #9DB7D5;
+    --frost-mist: #EAF4FF;
+    --snow-white: #FFFFFF;
+
+    --text-primary: #071629;
+    --text-secondary: #17345C;
+    --page-background: #EAF4FF;
+    --border-color: #9DB7D5;
+
+    --shadow-sm: 0 2px 8px rgba(7, 22, 41, 0.08);
+    --shadow-md: 0 6px 20px rgba(7, 22, 41, 0.12);
+
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+}
+
+body {
+    font-family: 'Mulish', sans-serif;
+    background-color: var(--page-background);
+    color: var(--text-primary);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+h1, h2, h3, h4, h5, h6, .navbar-brand {
+    font-family: 'Epilogue', sans-serif;
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.text-muted, .text-secondary {
+    color: var(--text-secondary) !important;
+}
+
+/* Navbar */
+.navbar {
+    background-color: var(--frost-navy) !important;
+    padding: 1rem 0;
+    box-shadow: var(--shadow-sm);
+}
+
+.navbar-brand, .nav-link {
+    color: var(--snow-white) !important;
+}
+
+.nav-link:hover {
+    color: var(--icy-steel) !important;
+}
+
+.nav-link.active {
+    color: var(--snow-white) !important;
+    background-color: var(--deep-winter-blue);
+    border-radius: var(--radius-sm);
+}
+
+.dropdown-menu {
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
+}
+
+/* Cards */
+.card {
+    background-color: var(--snow-white);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    margin-bottom: 1.5rem;
+}
+
+.card-header {
+    background-color: var(--snow-white) !important;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-primary) !important;
+    border-top-left-radius: var(--radius-md) !important;
+    border-top-right-radius: var(--radius-md) !important;
+    font-weight: 600;
+}
+
+.card-header.bg-primary, .card-header.bg-dark, .card-header.bg-white {
+    background-color: var(--snow-white) !important;
+    color: var(--text-primary) !important;
+}
+
+.eq-card .card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md) !important;
+}
+
+/* Buttons */
+.btn {
+    border-radius: var(--radius-sm);
+    font-weight: 500;
+    padding: 0.5rem 1.25rem;
+    transition: all 0.2s ease-in-out;
+}
+
+.btn-primary, .btn-success, .btn-info, .btn-dark {
+    background-color: var(--deep-winter-blue) !important;
+    border-color: var(--deep-winter-blue) !important;
+    color: var(--snow-white) !important;
+}
+
+.btn-primary:hover, .btn-success:hover, .btn-info:hover, .btn-dark:hover {
+    background-color: var(--frost-navy) !important;
+    border-color: var(--frost-navy) !important;
+}
+
+.btn-secondary {
+    background-color: var(--frost-mist) !important;
+    border-color: var(--border-color) !important;
+    color: var(--text-secondary) !important;
+}
+
+.btn-secondary:hover {
+    background-color: var(--icy-steel) !important;
+    color: var(--frost-navy) !important;
+}
+
+.btn-outline-primary, .btn-outline-success, .btn-outline-info {
+    background-color: transparent !important;
+    border-color: var(--deep-winter-blue) !important;
+    color: var(--deep-winter-blue) !important;
+}
+
+.btn-outline-primary:hover, .btn-outline-success:hover, .btn-outline-info:hover {
+    background-color: var(--deep-winter-blue) !important;
+    color: var(--snow-white) !important;
+}
+
+.btn-outline-danger, .btn-danger {
+    background-color: transparent !important;
+    border-color: var(--frost-navy) !important;
+    color: var(--frost-navy) !important;
+}
+
+.btn-outline-danger:hover, .btn-danger:hover {
+    background-color: var(--frost-navy) !important;
+    color: var(--snow-white) !important;
+}
+
+/* Dashboard Stat Cards Override */
+.card.text-white.bg-primary, .card.text-white.bg-secondary, 
+.card.text-white.bg-success, .card.text-white.bg-danger, 
+.card.text-white.bg-warning, .card.text-white.bg-info, 
+.card.text-white.bg-dark {
+    background-color: var(--snow-white) !important;
+    color: var(--text-primary) !important;
+    border: 1px solid var(--border-color);
+}
+.card.text-white .card-title {
+    color: var(--text-secondary);
+    font-size: 1rem;
+}
+.card.text-white .card-text {
+    color: var(--frost-navy);
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+/* Forms */
+.form-control, .form-select {
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    padding: 0.6rem 1rem;
+    background-color: var(--snow-white);
+    color: var(--text-primary);
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--deep-winter-blue);
+    box-shadow: 0 0 0 0.25rem rgba(23, 52, 92, 0.25);
+}
+
+/* Tables */
+.table-responsive {
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+}
+
+.table {
+    margin-bottom: 0;
+    background-color: var(--snow-white);
+}
+
+.table thead th {
+    background-color: var(--frost-navy) !important;
+    color: var(--snow-white) !important;
+    border-bottom: none;
+    font-weight: 500;
+    padding: 1rem;
+}
+
+.table tbody td {
+    padding: 1rem;
+    vertical-align: middle;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-primary);
+}
+
+.table-hover tbody tr:hover td {
+    background-color: var(--frost-mist) !important;
+}
+
+/* Badges & Status */
+.badge {
+    padding: 0.4em 0.8em;
+    border-radius: 4px;
+    font-weight: 500;
+}
+
+.badge.bg-warning { /* Pending */
+    background-color: var(--frost-mist) !important;
+    color: var(--deep-winter-blue) !important;
+    border: 1px solid var(--border-color);
+}
+
+.badge.bg-info { /* Approved */
+    background-color: var(--icy-steel) !important;
+    color: var(--frost-navy) !important;
+}
+
+.badge.bg-success { /* Active / Available */
+    background-color: var(--deep-winter-blue) !important;
+    color: var(--snow-white) !important;
+}
+
+.badge.bg-secondary { /* Completed */
+    background-color: var(--frost-mist) !important;
+    color: var(--frost-navy) !important;
+    border: 1px solid var(--border-color);
+}
+
+.badge.bg-danger { /* Rejected / Unavailable */
+    background-color: var(--frost-navy) !important;
+    color: var(--snow-white) !important;
+}
+
+.badge.bg-dark { /* Cancelled */
+    background-color: var(--frost-navy) !important;
+    color: var(--icy-steel) !important;
+}
+
+/* Dept Badges */
+.dept-badge {
+    display: inline-block;
+    background-color: var(--frost-mist);
+    color: var(--deep-winter-blue);
+    border: 1px solid var(--border-color);
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+/* Alerts */
+.alert {
+    border-radius: var(--radius-md);
+    border: none;
+    box-shadow: var(--shadow-sm);
+}
+
+.alert-success {
+    background-color: var(--deep-winter-blue);
+    color: var(--snow-white);
+}
+
+.alert-danger {
+    background-color: var(--frost-navy);
+    color: var(--snow-white);
+}
+
+.alert-warning {
+    background-color: var(--frost-mist);
+    color: var(--deep-winter-blue);
+    border: 1px solid var(--border-color);
+}
+
+.alert-info {
+    background-color: var(--icy-steel);
+    color: var(--frost-navy);
+}
+
+.btn-close {
+    filter: invert(1) grayscale(100%) brightness(200%);
+}
+
+.alert-warning .btn-close {
+    filter: none;
+}
+
+footer {
+    margin-top: auto;
+    background-color: var(--snow-white) !important;
+    border-top: 1px solid var(--border-color);
+    color: var(--text-secondary);
+}
+
+.main-content {
+    flex: 1;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+/* Sidebar / Generic utility */
+.sidebar {
+    background-color: var(--frost-navy);
+    color: var(--icy-steel);
+    min-height: 100vh;
+}
+.sidebar .nav-link {
+    color: var(--icy-steel);
+}
+.sidebar .nav-link:hover, .sidebar .nav-link.active {
+    color: var(--snow-white);
+    background-color: var(--deep-winter-blue);
+}
+
+/* Specific styling for landing page hero */
+.bg-light {
+    background-color: var(--snow-white) !important;
+    border: 1px solid var(--border-color);
+}
+
+hr {
+    border-color: var(--border-color);
+}

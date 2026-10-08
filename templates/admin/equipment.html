@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Manage Equipment</h2>
+    <a href="{{ url_for('add_equipment') }}" class="btn btn-primary">+ Add New Equipment</a>
+</div>
+
+<div class="row mb-3">
+    <div class="col-md-4">
+        <select id="adminDeptFilter" class="form-select">
+            <option value="">All Departments</option>
+            <option value="Information Technology">Information Technology</option>
+            <option value="Computer Science and Engineering">Computer Science and Engineering</option>
+            <option value="Electronics and Communication Engineering">Electronics and Communication Engineering</option>
+            <option value="Electrical and Electronics Engineering">Electrical and Electronics Engineering</option>
+            <option value="Mechanical Engineering">Mechanical Engineering</option>
+            <option value="Civil Engineering">Civil Engineering</option>
+            <option value="Aeronautical Engineering">Aeronautical Engineering</option>
+        </select>
+    </div>
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0" id="adminEqTable">
+                <thead class="table-light">
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Department</th>
+                        <th>Laboratory</th>
+                        <th>Total Qty</th>
+                        <th>Available</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for eq in equipment %}
+                    <tr class="admin-eq-row" data-dept="{{ eq.department }}">
+                        <td>{{ eq.id }}</td>
+                        <td><strong>{{ eq.name }}</strong></td>
+                        <td>{{ eq.department }}</td>
+                        <td>{{ eq.lab_name }}</td>
+                        <td>{{ eq.quantity }}</td>
+                        <td>{{ eq.available_quantity }}</td>
+                        <td>
+                            {% if eq.status == 'Available' %}
+                                <span class="badge bg-success">Available</span>
+                            {% else %}
+                                <span class="badge bg-danger">{{ eq.status }}</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a href="{{ url_for('edit_equipment', id=eq.id) }}" class="btn btn-sm btn-outline-primary">Edit</a>
+                            <form action="{{ url_for('delete_equipment', id=eq.id) }}" method="POST" style="display:inline;">
+                                <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Delete this equipment?');">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="8" class="text-center">No equipment found.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const adminDeptFilter = document.getElementById('adminDeptFilter');
+    const rows = document.querySelectorAll('.admin-eq-row');
+
+    adminDeptFilter.addEventListener('change', function() {
+        const dept = this.value;
+        rows.forEach(row => {
+            if (dept === "" || row.getAttribute('data-dept') === dept) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    });
+});
+</script>
+{% endblock %}

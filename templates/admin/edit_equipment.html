@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">Edit Equipment</h4>
+            </div>
+            <div class="card-body p-4">
+                <form action="{{ url_for('edit_equipment', id=equipment.id) }}" method="POST">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Equipment Name</label>
+                        <input type="text" class="form-control" id="name" name="name" value="{{ equipment.name }}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description</label>
+                        <textarea class="form-control" id="description" name="description" rows="3">{{ equipment.description }}</textarea>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="department" class="form-label">Department</label>
+                            <select class="form-select" id="department" name="department" required>
+                                <option value="">Select Department</option>
+                                <option value="Information Technology" {% if equipment.department == 'Information Technology' %}selected{% endif %}>Information Technology</option>
+                                <option value="Computer Science and Engineering" {% if equipment.department == 'Computer Science and Engineering' %}selected{% endif %}>Computer Science and Engineering</option>
+                                <option value="Electronics and Communication Engineering" {% if equipment.department == 'Electronics and Communication Engineering' %}selected{% endif %}>Electronics and Communication Engineering</option>
+                                <option value="Electrical and Electronics Engineering" {% if equipment.department == 'Electrical and Electronics Engineering' %}selected{% endif %}>Electrical and Electronics Engineering</option>
+                                <option value="Mechanical Engineering" {% if equipment.department == 'Mechanical Engineering' %}selected{% endif %}>Mechanical Engineering</option>
+                                <option value="Civil Engineering" {% if equipment.department == 'Civil Engineering' %}selected{% endif %}>Civil Engineering</option>
+                                <option value="Aeronautical Engineering" {% if equipment.department == 'Aeronautical Engineering' %}selected{% endif %}>Aeronautical Engineering</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="lab_name" class="form-label">Laboratory</label>
+                            <input type="text" class="form-control" id="lab_name" name="lab_name" value="{{ equipment.lab_name }}" required>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="quantity" class="form-label">Total Quantity</label>
+                            <input type="number" class="form-control" id="quantity" name="quantity" min="1" value="{{ equipment.quantity }}" required>
+                            <small class="text-muted">Available: {{ equipment.available_quantity }}</small>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="status" class="form-label">Status</label>
+                            <select class="form-select" id="status" name="status">
+                                <option value="Available" {% if equipment.status == 'Available' %}selected{% endif %}>Available</option>
+                                <option value="Under Maintenance" {% if equipment.status == 'Under Maintenance' %}selected{% endif %}>Under Maintenance</option>
+                                <option value="Damaged" {% if equipment.status == 'Damaged' %}selected{% endif %}>Damaged</option>
+                                <option value="Retired" {% if equipment.status == 'Retired' %}selected{% endif %}>Retired</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <a href="{{ url_for('admin_equipment') }}" class="btn btn-secondary">Cancel</a>
+                        <button type="submit" class="btn btn-primary">Update Equipment</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

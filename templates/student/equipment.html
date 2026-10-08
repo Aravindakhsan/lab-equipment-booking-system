@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>{{ session.department }} Equipment</h2>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-4 mb-2">
+        <input type="text" id="searchInput" class="form-control" placeholder="Search equipment by name...">
+    </div>
+    <div class="col-md-4 mb-2">
+        <select id="labFilter" class="form-select">
+            <option value="">All Laboratories</option>
+            <option value="Electronics Lab">Electronics Lab</option>
+            <option value="IoT Lab">IoT Lab</option>
+            <option value="Embedded Systems Lab">Embedded Systems Lab</option>
+            <option value="Innovation Lab">Innovation Lab</option>
+            <option value="VLSI Lab">VLSI Lab</option>
+        </select>
+    </div>
+    <div class="col-md-4 mb-2">
+        <select id="availFilter" class="form-select">
+            <option value="">All Availability</option>
+            <option value="available">Available Now</option>
+        </select>
+    </div>
+</div>
+
+<div class="row" id="equipmentList">
+    {% for eq in equipment %}
+    <div class="col-md-4 mb-4 eq-card" data-name="{{ eq.name|lower }}" data-lab="{{ eq.lab_name }}" data-avail="{{ eq.available_quantity }}">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">{{ eq.name }}</h5>
+                <h6 class="card-subtitle mb-2 text-muted"><i class="bi bi-geo-alt-fill me-1"></i>{{ eq.lab_name }}</h6>
+                <div class="mb-3">
+                    <span class="dept-badge">{{ eq.department }}</span>
+                </div>
+                <p class="card-text">{{ eq.description }}</p>
+                
+                <ul class="list-group list-group-flush mb-3">
+                    <li class="list-group-item d-flex justify-content-between px-0">
+                        Total Quantity: <span>{{ eq.quantity }}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between px-0">
+                        Available: <strong>{{ eq.available_quantity }}</strong>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between px-0">
+                        Status: 
+                        {% if eq.status == 'Available' and eq.available_quantity > 0 %}
+                            <span class="text-success">Available</span>
+                        {% else %}
+                            <span class="text-danger">Unavailable</span>
+                        {% endif %}
+                    </li>
+                </ul>
+                
+                {% if eq.available_quantity > 0 and eq.status == 'Available' %}
+                    <a href="{{ url_for('book_equipment', equipment_id=eq.id) }}" class="btn btn-primary w-100">Book Now</a>
+                {% else %}
+                    <button class="btn btn-secondary w-100" disabled>Unavailable</button>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('searchInput');
+    const labFilter = document.getElementById('labFilter');
+    const availFilter = document.getElementById('availFilter');
+    const cards = document.querySelectorAll('.eq-card');
+
+    function filterCards() {
+        const term = searchInput.value.toLowerCase();
+        const lab = labFilter.value;
+        const avail = availFilter.value;
+
+        cards.forEach(card => {
+            const name = card.getAttribute('data-name');
+            const cLab = card.getAttribute('data-lab');
+            const cAvail = parseInt(card.getAttribute('data-avail'));
+
+            let matchName = name.includes(term);
+            let matchLab = (lab === "" || cLab === lab);
+            let matchAvail = (avail === "" || (avail === "available" && cAvail > 0));
+
+            if (matchName && matchLab && matchAvail) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+
+    searchInput.addEventListener('keyup', filterCards);
+    labFilter.addEventListener('change', filterCards);
+    availFilter.addEventListener('change', filterCards);
+});
+</script>
+{% endblock %}

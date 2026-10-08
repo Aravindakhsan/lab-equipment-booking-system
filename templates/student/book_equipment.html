@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">Book Equipment</h4>
+            </div>
+            <div class="card-body p-4">
+                <div class="mb-4 p-3 bg-light rounded">
+                    <h5>{{ equipment.name }}</h5>
+                    <p class="mb-1"><strong>Laboratory:</strong> {{ equipment.lab_name }}</p>
+                    <p class="mb-1"><strong>Description:</strong> {{ equipment.description }}</p>
+                </div>
+
+                <form action="{{ url_for('book_equipment', equipment_id=equipment.id) }}" method="POST">
+                    <div class="row mb-3">
+                        <div class="col-md-3">
+                            <label for="booking_date" class="form-label">Start Date</label>
+                            <input type="date" class="form-control" id="booking_date" name="booking_date" required>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="start_time" class="form-label">Start Time</label>
+                            <input type="time" class="form-control" id="start_time" name="start_time" required>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="expected_return_date" class="form-label">Return Date</label>
+                            <input type="date" class="form-control" id="expected_return_date" name="expected_return_date" required>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="expected_return_time" class="form-label">Return Time</label>
+                            <input type="time" class="form-control" id="expected_return_time" name="expected_return_time" required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="quantity" class="form-label">Quantity</label>
+                        <input type="number" class="form-control" id="quantity" name="quantity" min="1" max="{{ equipment.quantity }}" value="1" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="purpose" class="form-label">Purpose of Booking</label>
+                        <textarea class="form-control" id="purpose" name="purpose" rows="3" required></textarea>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <a href="{{ url_for('student_equipment') }}" class="btn btn-secondary">Cancel</a>
+                        <button type="submit" class="btn btn-success">Submit Booking Request</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Prevent selecting past dates
+    document.addEventListener('DOMContentLoaded', function() {
+        let today = new Date().toISOString().split('T')[0];
+        document.getElementById('booking_date').setAttribute('min', today);
+    });
+</script>
+{% endblock %}

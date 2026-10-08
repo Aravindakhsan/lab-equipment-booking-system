@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="card p-5 mb-4 text-center border-0" style="background-color: var(--snow-white);">
+    <div class="container-fluid py-5">
+        <h1 class="display-5 fw-bold" style="color: var(--frost-navy);">Lab Equipment Booking System</h1>
+        <p class="col-md-8 mx-auto fs-4 text-secondary mt-3">Digitize the process of managing and booking laboratory equipment. Easily browse, search, and book equipment for your academic and research needs.</p>
+        <div class="mt-4">
+        {% if not session.get('user_id') %}
+            <a href="{{ url_for('login') }}" class="btn btn-primary btn-lg px-4 gap-3 me-2">Login</a>
+            <a href="{{ url_for('register') }}" class="btn btn-secondary btn-lg px-4">Register</a>
+        {% else %}
+            {% if session.get('role') == 'admin' %}
+                <a href="{{ url_for('admin_dashboard') }}" class="btn btn-primary btn-lg">Go to Dashboard</a>
+            {% else %}
+                <a href="{{ url_for('student_dashboard') }}" class="btn btn-primary btn-lg">Go to Dashboard</a>
+            {% endif %}
+        {% endif %}
+        </div>
+    </div>
+</div>
+
+<div class="row align-items-md-stretch mb-4">
+    <div class="col-md-4 mb-3">
+        <div class="card h-100 p-4 border rounded-3">
+            <h2><i class="bi bi-search me-2"></i>Search Equipment</h2>
+            <p class="text-secondary mt-2">Find what you need across multiple laboratories including Electronics, IoT, and Embedded Systems.</p>
+        </div>
+    </div>
+    <div class="col-md-4 mb-3">
+        <div class="card h-100 p-4 border rounded-3">
+            <h2><i class="bi bi-calendar-check me-2"></i>Book Seamlessly</h2>
+            <p class="text-secondary mt-2">Check real-time availability and book equipment to avoid scheduling conflicts.</p>
+        </div>
+    </div>
+    <div class="col-md-4 mb-3">
+        <div class="card h-100 p-4 border rounded-3">
+            <h2><i class="bi bi-clock-history me-2"></i>Track Status</h2>
+            <p class="text-secondary mt-2">Monitor your bookings, wait for approvals, and return equipment directly via the portal.</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
