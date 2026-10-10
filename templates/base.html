@@ -62,17 +62,24 @@
                 {% endif %}
             </ul>
             <hr>
-            <div class="dropdown">
-                <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+            <div class="mt-auto">
+                <div class="d-flex align-items-center mb-3 text-white">
                     <div class="avatar-sm me-2">{{ session.get('name')[:1] | upper }}</div>
                     <strong>{{ session.get('name') }}</strong>
-                </a>
-                <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
+                </div>
+                <ul class="nav flex-column">
                     {% if session.get('role') == 'student' %}
-                    <li><a class="dropdown-item" href="{{ url_for('student_profile') }}">Profile</a></li>
-                    <li><hr class="dropdown-divider"></li>
+                    <li class="nav-item">
+                        <a href="{{ url_for('student_profile') }}" class="nav-link px-0 text-white">
+                            <i class="bi bi-person me-2"></i> Profile
+                        </a>
+                    </li>
                     {% endif %}
-                    <li><a class="dropdown-item" href="{{ url_for('logout') }}">Logout</a></li>
+                    <li class="nav-item mt-2">
+                        <a href="{{ url_for('logout') }}" class="btn btn-outline-danger w-100 text-start fw-bold">
+                            <i class="bi bi-box-arrow-right me-2"></i> Logout
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>

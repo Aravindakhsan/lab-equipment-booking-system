@@ -178,7 +178,9 @@ def student_equipment():
     conn = get_db_connection()
     equipment = conn.execute('SELECT * FROM equipment WHERE department = ?', (session['department'],)).fetchall()
     conn.close()
-    return render_template('student/equipment.html', equipment=equipment)
+    
+    labs = sorted(list(set([eq['lab_name'] for eq in equipment])))
+    return render_template('student/equipment.html', equipment=equipment, labs=labs)
 
 @app.route('/student/book/<int:equipment_id>', methods=['GET', 'POST'])
 @student_required

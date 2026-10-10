@@ -20,11 +20,9 @@
             <div class="col-md-4">
                 <select id="labFilter" class="form-select">
                     <option value="">All Laboratories</option>
-                    <option value="Electronics Lab">Electronics Lab</option>
-                    <option value="IoT Lab">IoT Lab</option>
-                    <option value="Embedded Systems Lab">Embedded Systems Lab</option>
-                    <option value="Innovation Lab">Innovation Lab</option>
-                    <option value="VLSI Lab">VLSI Lab</option>
+                    {% for lab in labs %}
+                    <option value="{{ lab }}">{{ lab }}</option>
+                    {% endfor %}
                 </select>
             </div>
             <div class="col-md-3">
@@ -104,7 +102,7 @@ document.addEventListener('DOMContentLoaded', function() {
             let matchAvail = (avail === "" || (avail === "available" && cAvail > 0));
 
             if (matchName && matchLab && matchAvail) {
-                card.style.display = 'block';
+                card.style.display = '';
             } else {
                 card.style.display = 'none';
             }
