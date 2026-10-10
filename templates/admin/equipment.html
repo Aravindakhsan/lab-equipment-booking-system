@@ -2,50 +2,62 @@
 
 {% block content %}
 <div class="d-flex justify-content-between align-items-center mb-4">
-    <h2>Manage Equipment</h2>
-    <a href="{{ url_for('add_equipment') }}" class="btn btn-primary">+ Add New Equipment</a>
+    <div>
+        <h2 class="fw-bold m-0" style="color: var(--frost-navy);">Manage Equipment</h2>
+        <div class="text-secondary fw-bold mt-1">Add, edit, or remove lab assets</div>
+    </div>
+    <a href="{{ url_for('add_equipment') }}" class="btn btn-primary fw-bold"><i class="bi bi-plus-lg me-2"></i>Add New Equipment</a>
 </div>
 
-<div class="row mb-3">
-    <div class="col-md-4">
-        <select id="adminDeptFilter" class="form-select">
-            <option value="">All Departments</option>
-            <option value="Information Technology">Information Technology</option>
-            <option value="Computer Science and Engineering">Computer Science and Engineering</option>
-            <option value="Electronics and Communication Engineering">Electronics and Communication Engineering</option>
-            <option value="Electrical and Electronics Engineering">Electrical and Electronics Engineering</option>
-            <option value="Mechanical Engineering">Mechanical Engineering</option>
-            <option value="Civil Engineering">Civil Engineering</option>
-            <option value="Aeronautical Engineering">Aeronautical Engineering</option>
-        </select>
+<div class="card shadow-sm border-0 mb-4" style="border-radius: var(--radius-md); background-color: var(--snow-white);">
+    <div class="card-body p-3">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="input-group">
+                    <span class="input-group-text bg-white border-end-0"><i class="bi bi-filter text-secondary"></i></span>
+                    <select id="adminDeptFilter" class="form-select border-start-0 ps-0 text-secondary fw-bold">
+                        <option value="">All Departments</option>
+                        <option value="Information Technology">Information Technology</option>
+                        <option value="Computer Science and Engineering">Computer Science and Engineering</option>
+                        <option value="Electronics and Communication Engineering">Electronics and Communication Engineering</option>
+                        <option value="Electrical and Electronics Engineering">Electrical and Electronics Engineering</option>
+                        <option value="Mechanical Engineering">Mechanical Engineering</option>
+                        <option value="Civil Engineering">Civil Engineering</option>
+                        <option value="Aeronautical Engineering">Aeronautical Engineering</option>
+                    </select>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
-<div class="card shadow-sm">
+<div class="card shadow-sm border-0" style="border-radius: var(--radius-md);">
     <div class="card-body p-0">
-        <div class="table-responsive">
+        <div class="table-responsive border-0">
             <table class="table table-hover align-middle mb-0" id="adminEqTable">
-                <thead class="table-light">
+                <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Name</th>
+                        <th class="ps-4">ID</th>
+                        <th>Name & Lab</th>
                         <th>Department</th>
-                        <th>Laboratory</th>
-                        <th>Total Qty</th>
-                        <th>Available</th>
+                        <th class="text-center">Stock</th>
                         <th>Status</th>
-                        <th>Actions</th>
+                        <th class="pe-4 text-end">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for eq in equipment %}
                     <tr class="admin-eq-row" data-dept="{{ eq.department }}">
-                        <td>{{ eq.id }}</td>
-                        <td><strong>{{ eq.name }}</strong></td>
-                        <td>{{ eq.department }}</td>
-                        <td>{{ eq.lab_name }}</td>
-                        <td>{{ eq.quantity }}</td>
-                        <td>{{ eq.available_quantity }}</td>
+                        <td class="ps-4 fw-bold text-muted">#{{ eq.id }}</td>
+                        <td>
+                            <div class="fw-bold" style="color: var(--deep-winter-blue);">{{ eq.name }}</div>
+                            <div class="small text-muted"><i class="bi bi-geo-alt-fill me-1"></i>{{ eq.lab_name }}</div>
+                        </td>
+                        <td><span class="badge bg-secondary">{{ eq.department[:3]|upper }}</span></td>
+                        <td class="text-center">
+                            <span class="fw-bold text-success">{{ eq.available_quantity }}</span>
+                            <span class="text-muted small">/ {{ eq.quantity }}</span>
+                        </td>
                         <td>
                             {% if eq.status == 'Available' %}
                                 <span class="badge bg-success">Available</span>
@@ -53,16 +65,19 @@
                                 <span class="badge bg-danger">{{ eq.status }}</span>
                             {% endif %}
                         </td>
-                        <td>
-                            <a href="{{ url_for('edit_equipment', id=eq.id) }}" class="btn btn-sm btn-outline-primary">Edit</a>
+                        <td class="pe-4 text-end">
+                            <a href="{{ url_for('edit_equipment', id=eq.id) }}" class="btn btn-sm btn-outline-primary px-3 py-1 fw-bold me-1">Edit</a>
                             <form action="{{ url_for('delete_equipment', id=eq.id) }}" method="POST" style="display:inline;">
-                                <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Delete this equipment?');">Delete</button>
+                                <button type="submit" class="btn btn-sm btn-outline-danger px-3 py-1 fw-bold" onclick="return confirm('Delete this equipment?');">Delete</button>
                             </form>
                         </td>
                     </tr>
                     {% else %}
                     <tr>
-                        <td colspan="8" class="text-center">No equipment found.</td>
+                        <td colspan="6" class="text-center py-5">
+                            <i class="bi bi-box fs-1 text-muted d-block mb-3"></i>
+                            <h5 class="text-secondary">No equipment found</h5>
+                        </td>
                     </tr>
                     {% endfor %}
                 </tbody>

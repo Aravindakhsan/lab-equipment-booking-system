@@ -1,42 +1,90 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="card p-5 mb-4 text-center border-0" style="background-color: var(--snow-white);">
-    <div class="container-fluid py-5">
-        <h1 class="display-5 fw-bold" style="color: var(--frost-navy);">Lab Equipment Booking System</h1>
-        <p class="col-md-8 mx-auto fs-4 text-secondary mt-3">Digitize the process of managing and booking laboratory equipment. Easily browse, search, and book equipment for your academic and research needs.</p>
-        <div class="mt-4">
+<div class="hero-section px-4">
+    <div class="container">
+        <h1 class="display-4 fw-bold">Lab Equipment Booking System</h1>
+        <p class="lead mt-3">Digitize the process of managing and booking laboratory equipment. Easily browse, search, and book equipment for your academic and research needs with our modern portal.</p>
+        <div class="mt-5">
         {% if not session.get('user_id') %}
-            <a href="{{ url_for('login') }}" class="btn btn-primary btn-lg px-4 gap-3 me-2">Login</a>
-            <a href="{{ url_for('register') }}" class="btn btn-secondary btn-lg px-4">Register</a>
+            <a href="{{ url_for('login') }}" class="btn btn-primary btn-lg px-5 me-3">Login</a>
+            <a href="{{ url_for('register') }}" class="btn btn-outline-light btn-lg px-5">Register</a>
         {% else %}
             {% if session.get('role') == 'admin' %}
-                <a href="{{ url_for('admin_dashboard') }}" class="btn btn-primary btn-lg">Go to Dashboard</a>
+                <a href="{{ url_for('admin_dashboard') }}" class="btn btn-primary btn-lg px-5">Go to Dashboard</a>
             {% else %}
-                <a href="{{ url_for('student_dashboard') }}" class="btn btn-primary btn-lg">Go to Dashboard</a>
+                <a href="{{ url_for('student_dashboard') }}" class="btn btn-primary btn-lg px-5">Go to Dashboard</a>
             {% endif %}
         {% endif %}
         </div>
     </div>
 </div>
 
-<div class="row align-items-md-stretch mb-4">
-    <div class="col-md-4 mb-3">
-        <div class="card h-100 p-4 border rounded-3">
-            <h2><i class="bi bi-search me-2"></i>Search Equipment</h2>
-            <p class="text-secondary mt-2">Find what you need across multiple laboratories including Electronics, IoT, and Embedded Systems.</p>
+<div class="container mb-5">
+    <div class="text-center mb-5">
+        <h2 class="fw-bold" style="color: var(--frost-navy);">Features that empower your research</h2>
+        <p class="text-secondary">Everything you need to manage lab resources effectively.</p>
+    </div>
+    
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="card h-100 p-4 border-0 text-center shadow-sm" style="border-radius: var(--radius-lg);">
+                <div class="stat-icon bg-primary-subtle mx-auto mb-4">
+                    <i class="bi bi-search"></i>
+                </div>
+                <h4 class="fw-bold mb-3">Search Equipment</h4>
+                <p class="text-secondary mb-0">Find exactly what you need across multiple laboratories including Electronics, IoT, and Embedded Systems.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100 p-4 border-0 text-center shadow-sm" style="border-radius: var(--radius-lg);">
+                <div class="stat-icon bg-success-subtle mx-auto mb-4">
+                    <i class="bi bi-calendar-check"></i>
+                </div>
+                <h4 class="fw-bold mb-3">Book Seamlessly</h4>
+                <p class="text-secondary mb-0">Check real-time availability and reserve equipment to avoid scheduling conflicts with your peers.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100 p-4 border-0 text-center shadow-sm" style="border-radius: var(--radius-lg);">
+                <div class="stat-icon bg-info-subtle mx-auto mb-4">
+                    <i class="bi bi-clock-history"></i>
+                </div>
+                <h4 class="fw-bold mb-3">Track Status</h4>
+                <p class="text-secondary mb-0">Monitor your bookings, await approvals, and return equipment directly via the portal in just clicks.</p>
+            </div>
         </div>
     </div>
-    <div class="col-md-4 mb-3">
-        <div class="card h-100 p-4 border rounded-3">
-            <h2><i class="bi bi-calendar-check me-2"></i>Book Seamlessly</h2>
-            <p class="text-secondary mt-2">Check real-time availability and book equipment to avoid scheduling conflicts.</p>
-        </div>
-    </div>
-    <div class="col-md-4 mb-3">
-        <div class="card h-100 p-4 border rounded-3">
-            <h2><i class="bi bi-clock-history me-2"></i>Track Status</h2>
-            <p class="text-secondary mt-2">Monitor your bookings, wait for approvals, and return equipment directly via the portal.</p>
+</div>
+
+<div class="container mb-5">
+    <div class="card bg-white border-0 shadow-sm" style="border-radius: var(--radius-lg);">
+        <div class="card-body p-5">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold" style="color: var(--frost-navy);">How it works</h2>
+            </div>
+            <div class="row text-center position-relative">
+                <div class="col-md-3 mb-4 mb-md-0">
+                    <div class="avatar-circle mx-auto mb-3" style="width: 80px; height: 80px; font-size: 2rem;">1</div>
+                    <h5 class="fw-bold">Register / Login</h5>
+                    <p class="text-secondary small">Access the platform with your university credentials.</p>
+                </div>
+                <div class="col-md-3 mb-4 mb-md-0">
+                    <div class="avatar-circle mx-auto mb-3" style="width: 80px; height: 80px; font-size: 2rem;">2</div>
+                    <h5 class="fw-bold">Browse Catalogue</h5>
+                    <p class="text-secondary small">Explore available equipment by department and condition.</p>
+                </div>
+                <div class="col-md-3 mb-4 mb-md-0">
+                    <div class="avatar-circle mx-auto mb-3" style="width: 80px; height: 80px; font-size: 2rem;">3</div>
+                    <h5 class="fw-bold">Place Booking</h5>
+                    <p class="text-secondary small">Submit a request for the dates you need the item.</p>
+                </div>
+                <div class="col-md-3">
+                    <div class="avatar-circle mx-auto mb-3 bg-deep-winter-blue text-white" style="width: 80px; height: 80px; font-size: 2rem; background-color: var(--deep-winter-blue); color: var(--snow-white);">4</div>
+                    <h5 class="fw-bold">Approval & Return</h5>
+                    <p class="text-secondary small">Admins approve the request. Return the item when done.</p>
+                </div>
+            </div>
         </div>
     </div>
 </div>

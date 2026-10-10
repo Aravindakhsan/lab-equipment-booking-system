@@ -1,42 +1,50 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2 class="mb-4">Equipment Returns</h2>
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h2 class="fw-bold m-0" style="color: var(--frost-navy);">Equipment Returns</h2>
+        <div class="text-secondary fw-bold mt-1">Process returns and view history</div>
+    </div>
+</div>
 
-<div class="row">
-    <div class="col-md-12 mb-4">
-        <div class="card shadow-sm border-primary">
-            <div class="card-header bg-primary text-white">
-                <h5 class="mb-0">Active Bookings (Pending Return)</h5>
+<div class="row g-4">
+    <div class="col-md-12">
+        <div class="card shadow-sm border-0" style="border-radius: var(--radius-md);">
+            <div class="card-header border-bottom px-4 py-3" style="background-color: var(--snow-white);">
+                <h5 class="mb-0 fw-bold" style="color: var(--frost-navy);">Active Bookings <span class="badge bg-warning rounded-pill ms-2 text-dark">Pending Return</span></h5>
             </div>
             <div class="card-body p-0">
-                <div class="table-responsive">
+                <div class="table-responsive border-0">
                     <table class="table table-hover align-middle mb-0">
-                        <thead class="table-light">
+                        <thead>
                             <tr>
-                                <th>Booking ID</th>
+                                <th class="ps-4">ID</th>
                                 <th>Student</th>
                                 <th>Equipment</th>
                                 <th>Booking Date</th>
                                 <th>Status</th>
-                                <th>Actions</th>
+                                <th class="pe-4 text-end">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             {% for b in active_bookings %}
                             <tr>
-                                <td>#{{ b.id }}</td>
-                                <td>{{ b.student_name }}</td>
-                                <td>{{ b.equipment_name }}</td>
+                                <td class="ps-4 fw-bold text-muted">#{{ b.id }}</td>
+                                <td class="fw-bold">{{ b.student_name }}</td>
+                                <td class="fw-bold" style="color: var(--deep-winter-blue);">{{ b.equipment_name }}</td>
                                 <td>{{ b.booking_date }}</td>
                                 <td><span class="badge bg-success">{{ b.status }}</span></td>
-                                <td>
-                                    <a href="{{ url_for('return_equipment', booking_id=b.id) }}" class="btn btn-sm btn-outline-primary">Process Return</a>
+                                <td class="pe-4 text-end">
+                                    <a href="{{ url_for('return_equipment', booking_id=b.id) }}" class="btn btn-sm btn-primary px-3 py-1 fw-bold"><i class="bi bi-arrow-return-left me-1"></i>Process Return</a>
                                 </td>
                             </tr>
                             {% else %}
                             <tr>
-                                <td colspan="6" class="text-center">No active bookings pending return.</td>
+                                <td colspan="6" class="text-center py-5">
+                                    <i class="bi bi-check2-circle fs-1 text-muted d-block mb-3"></i>
+                                    <h5 class="text-secondary">No active bookings pending return</h5>
+                                </td>
                             </tr>
                             {% endfor %}
                         </tbody>
@@ -47,44 +55,46 @@
     </div>
     
     <div class="col-md-12">
-        <div class="card shadow-sm border-secondary">
-            <div class="card-header bg-secondary text-white">
-                <h5 class="mb-0">Recent Returns</h5>
+        <div class="card shadow-sm border-0 mt-2" style="border-radius: var(--radius-md);">
+            <div class="card-header border-bottom px-4 py-3" style="background-color: var(--snow-white);">
+                <h5 class="mb-0 fw-bold" style="color: var(--frost-navy);">Recent Returns History</h5>
             </div>
             <div class="card-body p-0">
-                <div class="table-responsive">
+                <div class="table-responsive border-0">
                     <table class="table table-hover align-middle mb-0">
-                        <thead class="table-light">
+                        <thead>
                             <tr>
-                                <th>Booking ID</th>
+                                <th class="ps-4">Booking ID</th>
                                 <th>Student</th>
                                 <th>Equipment</th>
                                 <th>Return Date</th>
                                 <th>Condition</th>
-                                <th>Remarks</th>
+                                <th class="pe-4">Remarks</th>
                             </tr>
                         </thead>
                         <tbody>
                             {% for r in recent_returns %}
                             <tr>
-                                <td>#{{ r.booking_id }}</td>
+                                <td class="ps-4 fw-bold text-muted">#{{ r.booking_id }}</td>
                                 <td>{{ r.student_name }}</td>
-                                <td>{{ r.equipment_name }}</td>
+                                <td class="fw-bold">{{ r.equipment_name }}</td>
                                 <td>{{ r.returned_date }}</td>
                                 <td>
                                     {% if r.condition == 'Good' %}
-                                        <span class="text-success fw-bold">{{ r.condition }}</span>
+                                        <span class="badge bg-success"><i class="bi bi-check-circle me-1"></i>{{ r.condition }}</span>
                                     {% elif r.condition == 'Minor Damage' %}
-                                        <span class="text-warning fw-bold">{{ r.condition }}</span>
+                                        <span class="badge bg-warning"><i class="bi bi-exclamation-triangle me-1"></i>{{ r.condition }}</span>
                                     {% else %}
-                                        <span class="text-danger fw-bold">{{ r.condition }}</span>
+                                        <span class="badge bg-danger"><i class="bi bi-x-circle me-1"></i>{{ r.condition }}</span>
                                     {% endif %}
                                 </td>
-                                <td>{{ r.remarks }}</td>
+                                <td class="pe-4 text-muted small">{{ r.remarks }}</td>
                             </tr>
                             {% else %}
                             <tr>
-                                <td colspan="6" class="text-center">No recent returns recorded.</td>
+                                <td colspan="6" class="text-center py-5 text-muted">
+                                    No recent returns recorded.
+                                </td>
                             </tr>
                             {% endfor %}
                         </tbody>

@@ -1,51 +1,84 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="row justify-content-center">
-    <div class="col-md-8">
-        <div class="card shadow-sm">
-            <div class="card-header bg-primary text-white">
-                <h4 class="mb-0">Book Equipment</h4>
-            </div>
-            <div class="card-body p-4">
-                <div class="mb-4 p-3 bg-light rounded">
-                    <h5>{{ equipment.name }}</h5>
-                    <p class="mb-1"><strong>Laboratory:</strong> {{ equipment.lab_name }}</p>
-                    <p class="mb-1"><strong>Description:</strong> {{ equipment.description }}</p>
-                </div>
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h2 class="fw-bold m-0" style="color: var(--frost-navy);">Book Equipment</h2>
+        <div class="text-secondary fw-bold mt-1">Complete your request details</div>
+    </div>
+    <a href="{{ url_for('student_equipment') }}" class="btn btn-outline-secondary"><i class="bi bi-arrow-left me-2"></i>Back to Catalogue</a>
+</div>
 
+<div class="row g-4">
+    <div class="col-lg-8">
+        <div class="card shadow-sm border-0" style="border-radius: var(--radius-md);">
+            <div class="card-body p-5">
+                <h4 class="fw-bold mb-4" style="color: var(--frost-navy);">Booking Form</h4>
                 <form action="{{ url_for('book_equipment', equipment_id=equipment.id) }}" method="POST">
-                    <div class="row mb-3">
-                        <div class="col-md-3">
-                            <label for="booking_date" class="form-label">Start Date</label>
-                            <input type="date" class="form-control" id="booking_date" name="booking_date" required>
+                    <div class="row mb-4 g-3">
+                        <div class="col-md-6">
+                            <label for="booking_date" class="form-label fw-bold">Start Date</label>
+                            <input type="date" class="form-control bg-light" id="booking_date" name="booking_date" required>
                         </div>
-                        <div class="col-md-3">
-                            <label for="start_time" class="form-label">Start Time</label>
-                            <input type="time" class="form-control" id="start_time" name="start_time" required>
+                        <div class="col-md-6">
+                            <label for="start_time" class="form-label fw-bold">Start Time</label>
+                            <input type="time" class="form-control bg-light" id="start_time" name="start_time" required>
                         </div>
-                        <div class="col-md-3">
-                            <label for="expected_return_date" class="form-label">Return Date</label>
-                            <input type="date" class="form-control" id="expected_return_date" name="expected_return_date" required>
+                        <div class="col-md-6">
+                            <label for="expected_return_date" class="form-label fw-bold">Return Date</label>
+                            <input type="date" class="form-control bg-light" id="expected_return_date" name="expected_return_date" required>
                         </div>
-                        <div class="col-md-3">
-                            <label for="expected_return_time" class="form-label">Return Time</label>
-                            <input type="time" class="form-control" id="expected_return_time" name="expected_return_time" required>
+                        <div class="col-md-6">
+                            <label for="expected_return_time" class="form-label fw-bold">Return Time</label>
+                            <input type="time" class="form-control bg-light" id="expected_return_time" name="expected_return_time" required>
                         </div>
                     </div>
-                    <div class="mb-3">
-                        <label for="quantity" class="form-label">Quantity</label>
-                        <input type="number" class="form-control" id="quantity" name="quantity" min="1" max="{{ equipment.quantity }}" value="1" required>
+                    
+                    <div class="mb-4">
+                        <label for="quantity" class="form-label fw-bold">Quantity Required</label>
+                        <input type="number" class="form-control bg-light" id="quantity" name="quantity" min="1" max="{{ equipment.available_quantity }}" value="1" required>
+                        <div class="form-text mt-2"><i class="bi bi-info-circle me-1"></i>Maximum available: {{ equipment.available_quantity }}</div>
                     </div>
-                    <div class="mb-3">
-                        <label for="purpose" class="form-label">Purpose of Booking</label>
-                        <textarea class="form-control" id="purpose" name="purpose" rows="3" required></textarea>
+                    
+                    <div class="mb-5">
+                        <label for="purpose" class="form-label fw-bold">Purpose of Booking</label>
+                        <textarea class="form-control bg-light" id="purpose" name="purpose" rows="4" placeholder="Briefly explain why you need this equipment..." required></textarea>
                     </div>
-                    <div class="d-flex justify-content-between">
-                        <a href="{{ url_for('student_equipment') }}" class="btn btn-secondary">Cancel</a>
-                        <button type="submit" class="btn btn-success">Submit Booking Request</button>
+                    
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary btn-lg fw-bold">Submit Booking Request</button>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-4">
+        <div class="card shadow-sm border-0" style="border-radius: var(--radius-md); background-color: var(--snow-white);">
+            <div class="card-body p-4">
+                <h5 class="fw-bold mb-4" style="color: var(--frost-navy);">Equipment Summary</h5>
+                <div class="text-center py-4 rounded mb-4" style="background-color: var(--frost-mist);">
+                    <i class="bi bi-tools" style="font-size: 3rem; color: var(--deep-winter-blue);"></i>
+                </div>
+                
+                <h4 class="fw-bold mb-2">{{ equipment.name }}</h4>
+                <p class="text-secondary small mb-4"><i class="bi bi-geo-alt-fill me-1"></i>{{ equipment.lab_name }}</p>
+                
+                <div class="mb-4">
+                    <span class="badge bg-secondary mb-2">{{ equipment.department }}</span>
+                    <p class="small text-muted">{{ equipment.description }}</p>
+                </div>
+                
+                <ul class="list-group list-group-flush mb-0 border-top pt-3">
+                    <li class="list-group-item px-0 d-flex justify-content-between align-items-center bg-transparent border-0">
+                        <span class="text-secondary small fw-bold">TOTAL STOCK</span>
+                        <span class="fw-bold">{{ equipment.quantity }}</span>
+                    </li>
+                    <li class="list-group-item px-0 d-flex justify-content-between align-items-center bg-transparent border-0">
+                        <span class="text-secondary small fw-bold">AVAILABLE NOW</span>
+                        <span class="badge bg-success rounded-pill">{{ equipment.available_quantity }}</span>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
@@ -56,6 +89,11 @@
     document.addEventListener('DOMContentLoaded', function() {
         let today = new Date().toISOString().split('T')[0];
         document.getElementById('booking_date').setAttribute('min', today);
+        
+        // Return date should be at least start date
+        document.getElementById('booking_date').addEventListener('change', function() {
+            document.getElementById('expected_return_date').setAttribute('min', this.value);
+        });
     });
 </script>
 {% endblock %}

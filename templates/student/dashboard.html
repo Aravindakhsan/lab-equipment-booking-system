@@ -1,68 +1,92 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2 class="mb-1">Welcome, {{ session.name }}</h2>
-<h5 class="text-muted mb-4">Department: {{ session.department }}</h5>
+<div class="d-flex justify-content-between align-items-end mb-4">
+    <div>
+        <h2 class="fw-bold m-0" style="color: var(--frost-navy);">Welcome back, {{ session.name }}</h2>
+        <div class="text-secondary fw-bold mt-1">Department: {{ session.department }}</div>
+    </div>
+    <a href="{{ url_for('student_equipment') }}" class="btn btn-primary"><i class="bi bi-plus-lg me-2"></i>New Booking</a>
+</div>
 
-<div class="row mb-4">
-    <div class="col-md-4 col-lg-2 mb-3">
-        <div class="card text-white bg-primary h-100">
-            <div class="card-body">
-                <h5 class="card-title">Total</h5>
-                <h2 class="card-text">{{ total }}</h2>
+<div class="row g-4 mb-4">
+    <div class="col-md-6 col-lg-4 col-xl-2">
+        <div class="stat-card">
+            <div class="stat-icon bg-primary-subtle">
+                <i class="bi bi-collection"></i>
+            </div>
+            <div class="stat-details">
+                <h3>{{ total }}</h3>
+                <p>Total</p>
             </div>
         </div>
     </div>
-    <div class="col-md-4 col-lg-2 mb-3">
-        <div class="card text-white bg-warning h-100">
-            <div class="card-body">
-                <h5 class="card-title">Pending</h5>
-                <h2 class="card-text">{{ pending }}</h2>
+    <div class="col-md-6 col-lg-4 col-xl-2">
+        <div class="stat-card">
+            <div class="stat-icon bg-warning-subtle">
+                <i class="bi bi-hourglass-split"></i>
+            </div>
+            <div class="stat-details">
+                <h3>{{ pending }}</h3>
+                <p>Pending</p>
             </div>
         </div>
     </div>
-    <div class="col-md-4 col-lg-2 mb-3">
-        <div class="card text-white bg-info h-100">
-            <div class="card-body">
-                <h5 class="card-title">Approved</h5>
-                <h2 class="card-text">{{ approved }}</h2>
+    <div class="col-md-6 col-lg-4 col-xl-2">
+        <div class="stat-card">
+            <div class="stat-icon bg-info-subtle">
+                <i class="bi bi-check-circle"></i>
+            </div>
+            <div class="stat-details">
+                <h3>{{ approved }}</h3>
+                <p>Approved</p>
             </div>
         </div>
     </div>
-    <div class="col-md-4 col-lg-2 mb-3">
-        <div class="card text-white bg-success h-100">
-            <div class="card-body">
-                <h5 class="card-title">Active</h5>
-                <h2 class="card-text">{{ active }}</h2>
+    <div class="col-md-6 col-lg-4 col-xl-2">
+        <div class="stat-card">
+            <div class="stat-icon bg-success-subtle">
+                <i class="bi bi-play-circle"></i>
+            </div>
+            <div class="stat-details">
+                <h3>{{ active }}</h3>
+                <p>Active</p>
             </div>
         </div>
     </div>
-    <div class="col-md-4 col-lg-2 mb-3">
-        <div class="card text-white bg-danger h-100">
-            <div class="card-body">
-                <h5 class="card-title">Overdue</h5>
-                <h2 class="card-text">{{ overdue }}</h2>
+    <div class="col-md-6 col-lg-4 col-xl-2">
+        <div class="stat-card">
+            <div class="stat-icon bg-danger-subtle">
+                <i class="bi bi-exclamation-triangle"></i>
+            </div>
+            <div class="stat-details">
+                <h3>{{ overdue }}</h3>
+                <p>Overdue</p>
             </div>
         </div>
     </div>
-    <div class="col-md-4 col-lg-2 mb-3">
-        <div class="card text-white bg-secondary h-100">
-            <div class="card-body">
-                <h5 class="card-title">Completed</h5>
-                <h2 class="card-text">{{ completed }}</h2>
+    <div class="col-md-6 col-lg-4 col-xl-2">
+        <div class="stat-card">
+            <div class="stat-icon" style="background-color: #E2E3E5; color: #383D41;">
+                <i class="bi bi-journal-check"></i>
+            </div>
+            <div class="stat-details">
+                <h3>{{ completed }}</h3>
+                <p>Completed</p>
             </div>
         </div>
     </div>
 </div>
 
-<div class="card shadow-sm">
-    <div class="card-header bg-white">
-        <h5 class="mb-0">Recent Bookings</h5>
+<div class="card h-100 shadow-sm">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <span>Recent Bookings</span>
+        <a href="{{ url_for('student_bookings') }}" class="btn btn-sm btn-outline-primary">View All</a>
     </div>
     <div class="card-body p-0">
-        <div class="table-responsive">
+        <div class="table-responsive border-0">
             <table class="table table-hover mb-0">
-                <thead class="table-light">
+                <thead>
                     <tr>
                         <th>ID</th>
                         <th>Equipment</th>
@@ -74,7 +98,7 @@
                 <tbody>
                     {% for b in recent_bookings %}
                     <tr>
-                        <td>#{{ b.id }}</td>
+                        <td class="fw-bold">#{{ b.id }}</td>
                         <td>{{ b.equipment_name }}</td>
                         <td>{{ b.booking_date }}</td>
                         <td>{{ b.start_time }}</td>
@@ -90,7 +114,10 @@
                     </tr>
                     {% else %}
                     <tr>
-                        <td colspan="5" class="text-center">No recent bookings.</td>
+                        <td colspan="5" class="text-center text-muted py-5">
+                            <i class="bi bi-calendar-x fs-1 d-block mb-3"></i>
+                            No recent bookings found.
+                        </td>
                     </tr>
                     {% endfor %}
                 </tbody>

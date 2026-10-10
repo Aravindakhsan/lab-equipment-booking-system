@@ -1,151 +1,167 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2 class="mb-4">Admin Dashboard</h2>
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold m-0" style="color: var(--frost-navy);">Admin Dashboard</h2>
+    <div class="text-secondary fw-bold">{{ total_bookings }} Total Bookings Processed</div>
+</div>
 
-<div class="row mb-4">
-    <div class="col-md-4 col-lg-2 mb-3">
-        <div class="card text-white bg-secondary h-100">
-            <div class="card-body">
-                <h5 class="card-title">Equipment</h5>
-                <h2 class="card-text">{{ total_equipment }}</h2>
+<div class="row mb-4 g-4">
+    <div class="col-md-6 col-lg-4 col-xl-2">
+        <div class="stat-card">
+            <div class="stat-icon bg-primary-subtle">
+                <i class="bi bi-tools"></i>
+            </div>
+            <div class="stat-details">
+                <h3>{{ total_equipment }}</h3>
+                <p>Equip</p>
             </div>
         </div>
     </div>
-    <div class="col-md-4 col-lg-2 mb-3">
-        <div class="card text-white bg-primary h-100">
-            <div class="card-body">
-                <h5 class="card-title">Bookings</h5>
-                <h2 class="card-text">{{ total_bookings }}</h2>
+    <div class="col-md-6 col-lg-4 col-xl-2">
+        <div class="stat-card">
+            <div class="stat-icon bg-warning-subtle">
+                <i class="bi bi-hourglass-split"></i>
+            </div>
+            <div class="stat-details">
+                <h3>{{ pending }}</h3>
+                <p>Pending</p>
             </div>
         </div>
     </div>
-    <div class="col-md-4 col-lg-2 mb-3">
-        <div class="card text-white bg-warning h-100">
-            <div class="card-body">
-                <h5 class="card-title">Pending</h5>
-                <h2 class="card-text">{{ pending }}</h2>
+    <div class="col-md-6 col-lg-4 col-xl-2">
+        <div class="stat-card">
+            <div class="stat-icon bg-info-subtle">
+                <i class="bi bi-check-circle"></i>
+            </div>
+            <div class="stat-details">
+                <h3>{{ approved }}</h3>
+                <p>Approved</p>
             </div>
         </div>
     </div>
-    <div class="col-md-4 col-lg-2 mb-3">
-        <div class="card text-white bg-info h-100">
-            <div class="card-body">
-                <h5 class="card-title">Approved</h5>
-                <h2 class="card-text">{{ approved }}</h2>
+    <div class="col-md-6 col-lg-4 col-xl-2">
+        <div class="stat-card">
+            <div class="stat-icon bg-success-subtle">
+                <i class="bi bi-play-circle"></i>
+            </div>
+            <div class="stat-details">
+                <h3>{{ active }}</h3>
+                <p>Active</p>
             </div>
         </div>
     </div>
-    <div class="col-md-4 col-lg-2 mb-3">
-        <div class="card text-white bg-success h-100">
-            <div class="card-body">
-                <h5 class="card-title">Active</h5>
-                <h2 class="card-text">{{ active }}</h2>
+    <div class="col-md-6 col-lg-4 col-xl-2">
+        <div class="stat-card">
+            <div class="stat-icon bg-danger-subtle">
+                <i class="bi bi-exclamation-triangle"></i>
+            </div>
+            <div class="stat-details">
+                <h3>{{ overdue }}</h3>
+                <p>Overdue</p>
             </div>
         </div>
     </div>
-    <div class="col-md-4 col-lg-2 mb-3">
-        <div class="card text-white bg-danger h-100">
-            <div class="card-body">
-                <h5 class="card-title">Overdue</h5>
-                <h2 class="card-text">{{ overdue }}</h2>
+    <div class="col-md-6 col-lg-4 col-xl-2">
+        <div class="stat-card">
+            <div class="stat-icon" style="background-color: #E2E3E5; color: #383D41;">
+                <i class="bi bi-journal-check"></i>
             </div>
-        </div>
-    </div>
-    <div class="col-md-4 col-lg-2 mb-3">
-        <div class="card text-white bg-dark h-100">
-            <div class="card-body">
-                <h5 class="card-title">Completed</h5>
-                <h2 class="card-text">{{ completed }}</h2>
+            <div class="stat-details">
+                <h3>{{ completed }}</h3>
+                <p>Completed</p>
             </div>
         </div>
     </div>
 </div>
 
-<div class="row mb-4">
-    <div class="col-md-6 mb-3 mb-md-0">
-        <div class="card shadow-sm h-100">
-            <div class="card-header bg-white">
-                <h5 class="mb-0">Equipment by Department</h5>
+<div class="row g-4 mb-4">
+    <div class="col-lg-4">
+        <div class="card h-100">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                Equipment by Department
             </div>
             <div class="card-body p-0">
-                <table class="table table-hover mb-0">
-                    <thead class="table-light">
-                        <tr>
-                            <th>Department</th>
-                            <th>Total Items</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for dept in dept_stats %}
-                        <tr>
-                            <td>{{ dept.department }}</td>
-                            <td>{{ dept.count }}</td>
-                        </tr>
-                        {% else %}
-                        <tr>
-                            <td colspan="2" class="text-center">No data available.</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+                <div class="table-responsive border-0">
+                    <table class="table table-hover mb-0">
+                        <thead>
+                            <tr>
+                                <th>Department</th>
+                                <th class="text-center">Count</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for dept in dept_stats %}
+                            <tr>
+                                <td class="fw-bold">{{ dept.department }}</td>
+                                <td class="text-center"><span class="badge bg-secondary px-3 py-2">{{ dept.count }}</span></td>
+                            </tr>
+                            {% else %}
+                            <tr>
+                                <td colspan="2" class="text-center text-muted py-4">No data available.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
-</div>
-
-<div class="card shadow-sm">
-    <div class="card-header bg-white d-flex justify-content-between align-items-center">
-        <h5 class="mb-0">Recent Booking Requests</h5>
-        <a href="{{ url_for('admin_bookings') }}" class="btn btn-sm btn-primary">View All</a>
-    </div>
-    <div class="card-body p-0">
-        <div class="table-responsive">
-            <table class="table table-hover mb-0">
-                <thead class="table-light">
-                    <tr>
-                        <th>ID</th>
-                        <th>Student</th>
-                        <th>Equipment</th>
-                        <th>Date</th>
-                        <th>Status</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for req in recent_requests %}
-                    <tr>
-                        <td>#{{ req.id }}</td>
-                        <td>{{ req.user_name }}</td>
-                        <td>{{ req.equipment_name }}</td>
-                        <td>{{ req.booking_date }}</td>
-                        <td>
-                            {% if req.status == 'Pending' %}<span class="badge bg-warning">Pending</span>
-                            {% elif req.status == 'Approved' %}<span class="badge bg-info">Approved</span>
-                            {% elif req.status == 'Active' %}<span class="badge bg-success">Active</span>
-                            {% elif req.status == 'Completed' %}<span class="badge bg-secondary">Completed</span>
-                            {% elif req.status == 'Rejected' %}<span class="badge bg-danger">Rejected</span>
-                            {% elif req.status == 'Cancelled' %}<span class="badge bg-dark">Cancelled</span>
-                            {% else %}<span class="badge bg-primary">{{ req.status }}</span>{% endif %}
-                        </td>
-                        <td>
-                            {% if req.status == 'Pending' %}
-                            <form action="{{ url_for('approve_booking', id=req.id) }}" method="POST" style="display:inline;">
-                                <button type="submit" class="btn btn-sm btn-success">Approve</button>
-                            </form>
-                            <form action="{{ url_for('reject_booking', id=req.id) }}" method="POST" style="display:inline;">
-                                <button type="submit" class="btn btn-sm btn-danger">Reject</button>
-                            </form>
-                            {% endif %}
-                        </td>
-                    </tr>
-                    {% else %}
-                    <tr>
-                        <td colspan="6" class="text-center">No recent requests.</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+    <div class="col-lg-8">
+        <div class="card h-100">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <span>Recent Booking Requests</span>
+                <a href="{{ url_for('admin_bookings') }}" class="btn btn-sm btn-outline-primary">View All</a>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive border-0">
+                    <table class="table table-hover mb-0">
+                        <thead>
+                            <tr>
+                                <th>Student</th>
+                                <th>Equipment</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for req in recent_requests %}
+                            <tr>
+                                <td class="fw-bold">{{ req.user_name }}</td>
+                                <td>{{ req.equipment_name }}</td>
+                                <td>{{ req.booking_date }}</td>
+                                <td>
+                                    {% if req.status == 'Pending' %}<span class="badge bg-warning">Pending</span>
+                                    {% elif req.status == 'Approved' %}<span class="badge bg-info">Approved</span>
+                                    {% elif req.status == 'Active' %}<span class="badge bg-success">Active</span>
+                                    {% elif req.status == 'Completed' %}<span class="badge bg-secondary">Completed</span>
+                                    {% elif req.status == 'Rejected' %}<span class="badge bg-danger">Rejected</span>
+                                    {% elif req.status == 'Cancelled' %}<span class="badge bg-dark">Cancelled</span>
+                                    {% else %}<span class="badge bg-primary">{{ req.status }}</span>{% endif %}
+                                </td>
+                                <td>
+                                    {% if req.status == 'Pending' %}
+                                    <form action="{{ url_for('approve_booking', id=req.id) }}" method="POST" style="display:inline;">
+                                        <button type="submit" class="btn btn-sm btn-success px-2 py-1"><i class="bi bi-check-lg"></i> Approve</button>
+                                    </form>
+                                    <form action="{{ url_for('reject_booking', id=req.id) }}" method="POST" style="display:inline;">
+                                        <button type="submit" class="btn btn-sm btn-danger px-2 py-1"><i class="bi bi-x-lg"></i> Reject</button>
+                                    </form>
+                                    {% else %}
+                                    <span class="text-muted small">-</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% else %}
+                            <tr>
+                                <td colspan="5" class="text-center text-muted py-5">No recent requests found.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 </div>

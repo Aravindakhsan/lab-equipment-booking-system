@@ -1,50 +1,53 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="row justify-content-center">
-    <div class="col-md-6 col-lg-5">
-        <div class="card shadow-sm">
-            <div class="card-header bg-dark text-white">
-                <h4 class="mb-0 text-center">Student Registration</h4>
-            </div>
-            <div class="card-body p-4">
-                <form action="{{ url_for('register') }}" method="POST">
-                    <div class="mb-3">
-                        <label for="name" class="form-label">Full Name</label>
-                        <input type="text" class="form-control" id="name" name="name" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email address</label>
-                        <input type="email" class="form-control" id="email" name="email" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="password" name="password" required minlength="6">
-                    </div>
-                    <div class="mb-3">
-                        <label for="confirm_password" class="form-label">Confirm Password</label>
-                        <input type="password" class="form-control" id="confirm_password" name="confirm_password" required minlength="6">
-                    </div>
-                    <div class="mb-3">
-                        <label for="department" class="form-label">Department</label>
-                        <select class="form-select" id="department" name="department" required>
-                            <option value="">Select Department</option>
-                            <option value="Information Technology">Information Technology</option>
-                            <option value="Computer Science and Engineering">Computer Science and Engineering</option>
-                            <option value="Electronics and Communication Engineering">Electronics and Communication Engineering</option>
-                            <option value="Electrical and Electronics Engineering">Electrical and Electronics Engineering</option>
-                            <option value="Mechanical Engineering">Mechanical Engineering</option>
-                            <option value="Civil Engineering">Civil Engineering</option>
-                            <option value="Aeronautical Engineering">Aeronautical Engineering</option>
-                        </select>
-                    </div>
-                    <div class="d-grid">
-                        <button type="submit" class="btn btn-primary">Register</button>
-                    </div>
-                </form>
-                <div class="mt-3 text-center">
-                    <p class="mb-0">Already have an account? <a href="{{ url_for('login') }}">Login here</a></p>
+<div class="d-flex justify-content-center align-items-center w-100 h-100">
+    <div class="auth-card">
+        <div class="auth-brand">
+            <i class="bi bi-flask"></i>
+            <h2>LabBook System</h2>
+            <p class="mt-3 text-white-50">Join our platform to easily book and manage laboratory equipment across departments.</p>
+        </div>
+        <div class="auth-form-section">
+            <h3 class="fw-bold mb-4" style="color: var(--frost-navy);">Create an Account</h3>
+            <form action="{{ url_for('register') }}" method="POST">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Full Name</label>
+                    <input type="text" class="form-control" id="name" name="name" placeholder="John Doe" required>
                 </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email Address</label>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="name@university.edu" required>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="••••••••" required minlength="6">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="confirm_password" class="form-label">Confirm Password</label>
+                        <input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="••••••••" required minlength="6">
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <label for="department" class="form-label">Department</label>
+                    <select class="form-select" id="department" name="department" required>
+                        <option value="">Select Department</option>
+                        <option value="Information Technology">Information Technology</option>
+                        <option value="Computer Science and Engineering">Computer Science and Engineering</option>
+                        <option value="Electronics and Communication Engineering">Electronics and Communication Engineering</option>
+                        <option value="Electrical and Electronics Engineering">Electrical and Electronics Engineering</option>
+                        <option value="Mechanical Engineering">Mechanical Engineering</option>
+                        <option value="Civil Engineering">Civil Engineering</option>
+                        <option value="Aeronautical Engineering">Aeronautical Engineering</option>
+                    </select>
+                </div>
+                <div class="d-grid mb-3">
+                    <button type="submit" class="btn btn-primary btn-lg">Register</button>
+                </div>
+            </form>
+            <div class="text-center">
+                <p class="mb-0 text-secondary">Already have an account? <a href="{{ url_for('login') }}" class="text-decoration-none fw-bold" style="color: var(--deep-winter-blue);">Log in here</a></p>
             </div>
         </div>
     </div>
